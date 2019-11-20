@@ -490,3 +490,15 @@ healthchecksdb
 MigrationBackup/
 
 # End of https://www.gitignore.io/api/unity,rider,visualstudio,visualstudiocode
+
+.idea/.idea.ExampleForChris/.idea/encodings.xml
+
+.idea/.idea.ExampleForChris/.idea/indexLayout.xml
+
+.idea/.idea.ExampleForChris/.idea/misc.xml
+
+.idea/.idea.ExampleForChris/.idea/modules.xml
+
+.idea/.idea.ExampleForChris/.idea/vcs.xml
+
+.idea/.idea.ExampleForChris/riderModule.iml
