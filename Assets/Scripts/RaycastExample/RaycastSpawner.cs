@@ -46,7 +46,7 @@ public class RaycastSpawner : MonoBehaviour
     
     [Header("Inputs")]
     [SerializeField] 
-    private KeyCode _KeyCode;
+    private int _MouseButton;
 
     private bool _EnableRaycast;
     private Camera _MainCamera;
@@ -59,7 +59,7 @@ public class RaycastSpawner : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(_MouseButton))
         {
             _EnableRaycast = true;
             
@@ -86,10 +86,10 @@ public class RaycastSpawner : MonoBehaviour
 
                 RaycastHit hit;
                 
-                //rays[rIndex] = _MainCamera.ScreenPointToRay(Input.mousePosition);
+                rays[rIndex] = _MainCamera.ScreenPointToRay(Input.mousePosition);
 
-                if (Physics.Raycast(/*rays[rIndex].GetPoint(100)*/transform.position, direction,out hit, _MaxDistance, _LayerMask,
-                    _CanCollideWithTriggers))
+                if (Physics.Raycast(rays[rIndex].GetPoint(10), 
+                direction,out hit, _MaxDistance, _LayerMask, _CanCollideWithTriggers))
                 {
                     int randomUnitIndex = Random.Range(0, _UnitToSpawn.Length);
                     Instantiate(_UnitToSpawn[randomUnitIndex], hit.point, Quaternion.identity);

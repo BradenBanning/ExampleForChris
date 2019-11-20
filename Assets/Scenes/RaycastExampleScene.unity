@@ -196,8 +196,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 291563710}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: -0.3177504, y: 0.22517043, z: -0.07795364, w: -0.91774523}
+  m_LocalPosition: {x: 58.64052, y: 18.10529, z: 12.875343}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -212,6 +212,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 692305855}
+  - component: {fileID: 692305856}
   m_Layer: 0
   m_Name: RaycastSpawner
   m_TagString: Untagged
@@ -233,6 +234,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &692305856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 692305854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0a6ad626560ead4d8548e991e3d0b8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _UnitToSpawn:
+  - {fileID: 1821983164061999566, guid: f5288b593f34d554889c0f9ef19412a2, type: 3}
+  - {fileID: 6224714079960001924, guid: 3a110bef6c975cb4bb6c91099729eb84, type: 3}
+  _MaxX: 90
+  _MaxY: 90
+  _MaxZ: 90
+  _MinX: -90
+  _MinY: -90
+  _MinZ: -90
+  _MaxDistance: 50
+  _NumberOfUnitsToSpawn: 10
+  _LayerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  _CanCollideWithTriggers: 1
+  _MouseButton: 0
 --- !u!1 &725586570
 GameObject:
   m_ObjectHideFlags: 0
@@ -244,7 +273,7 @@ GameObject:
   - component: {fileID: 725586573}
   - component: {fileID: 725586572}
   - component: {fileID: 725586571}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
