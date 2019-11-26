@@ -257,10 +257,14 @@ MonoBehaviour:
   _MinZ: -90
   _MaxDistance: 50
   _NumberOfUnitsToSpawn: 10
-  _LayerMask:
+  _RaycastLayerMask:
     serializedVersion: 2
     m_Bits: 256
   _CanCollideWithTriggers: 1
+  _Radius: 0.5
+  _OverlapSphereLayerMask:
+    serializedVersion: 2
+    m_Bits: 512
   _MouseButton: 0
 --- !u!1 &725586570
 GameObject:
