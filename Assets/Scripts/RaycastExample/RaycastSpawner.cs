@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UIElements;
 
 public class RaycastSpawner : MonoBehaviour
@@ -38,25 +39,22 @@ public class RaycastSpawner : MonoBehaviour
     [Tooltip("The Number of Units you want to Spawn per Key Press")] [SerializeField]
     private int _NumberOfUnitsToSpawn = 10;
 
-    [Tooltip("The Layers you want the Raycast to Collide with, the Raycast determines where a unit can spawn")] [SerializeField]
+    [Tooltip("The Layers you want the Raycast to Collide with, the Raycast determines where a unit can spawn")]
+    [SerializeField]
     private LayerMask _RaycastLayerMask;
-    
+
     [Tooltip("Can the Raycast Collide with Triggers?")] [SerializeField]
     private QueryTriggerInteraction _CanCollideWithTriggers;
-    
-    [Space]
-    [Header("OverlapSphere")]
-    [Tooltip("The Radius of the OverlapSphere")] [SerializeField]
+
+    [Space] [Header("OverlapSphere")] [Tooltip("The Radius of the OverlapSphere")] [SerializeField]
     private float _Radius = 0.5f;
 
-    [Tooltip("The Layers you want the OverlapSphere to Collide with, the OverlapSphere determines if a unit can spawn")] [SerializeField]
+    [Tooltip("The Layers you want the OverlapSphere to Collide with, the OverlapSphere determines if a unit can spawn")]
+    [SerializeField]
     private LayerMask _OverlapSphereLayerMask;
-    
-    
-    
-    [Space]
-    [Header("Inputs")] 
-    [SerializeField] private int _MouseButton;
+
+    [Space] [Header("Inputs")] [SerializeField]
+    private int _MouseButton;
 
     private bool _EnableRaycast;
     private Camera _MainCamera;
@@ -86,15 +84,15 @@ public class RaycastSpawner : MonoBehaviour
                 Vector3 direction = GetRandomDirection();
 
                 RaycastHit hit;
-                
+
 
                 rays[rIndex] = _MainCamera.ScreenPointToRay(Input.mousePosition);
 
 
                 if (Physics.Raycast(rays[rIndex].GetPoint(10),
-                    direction,out hit, _MaxDistance, _RaycastLayerMask, _CanCollideWithTriggers))
+                    direction, out hit, _MaxDistance, _RaycastLayerMask, _CanCollideWithTriggers))
                 {
-                    if(CanSpawn(hit.point) == true)
+                    if (CanSpawn(hit.point) == true)
                     {
                         SpawnRandomUnit(hit.point);
                     }
@@ -105,7 +103,7 @@ public class RaycastSpawner : MonoBehaviour
         }
     }
 
-    private void SpawnRandomUnit(Vector3 spawnLocation )
+    private void SpawnRandomUnit(Vector3 spawnLocation)
     {
         int randomUnitIndex = Random.Range(0, _UnitToSpawn.Length);
         Instantiate(_UnitToSpawn[randomUnitIndex], spawnLocation, Quaternion.identity);
@@ -113,15 +111,20 @@ public class RaycastSpawner : MonoBehaviour
 
     private bool CanSpawn(Vector3 spawnLocation)
     {
-        Collider[] colliders = Physics.OverlapSphere(spawnLocation, _Radius,
-            _OverlapSphereLayerMask);
-        if (colliders.Length > 0)
+        
+        if (NavMesh.SamplePosition(spawnLocation, out NavMeshHit hit, 0.5f,
+                NavMesh.AllAreas) == true)
         {
-            return false;
-        }
-       
+            Collider[] colliders = Physics.OverlapSphere(spawnLocation, _Radius,
+                _OverlapSphereLayerMask);
 
-        return true;
+            if (colliders.Length == 0)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private Vector3 GetRandomDirection()
